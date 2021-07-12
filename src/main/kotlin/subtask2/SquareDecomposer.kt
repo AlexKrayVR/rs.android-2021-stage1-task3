@@ -2,8 +2,22 @@ package subtask2
 
 class SquareDecomposer {
 
-    // TODO: Complete the following function
     fun decomposeNumber(number: Int): Array<Int>? {
-        throw NotImplementedError("Not implemented")
+        return decompose(number.toLong()-1, number.toLong() * number.toLong())?.toTypedArray()
+    }
+
+    private fun decompose(number: Long, total: Long): MutableList<Int>? {
+        if (total == 0L) {
+            return mutableListOf()
+        }
+        if (number <= 0 || total < 0) {
+            return null
+        }
+        val sub = decompose(number - 1, total - number * number)
+        if (sub != null) {
+            sub.add(number.toInt())
+            return sub
+        }
+        return decompose(number - 1, total)
     }
 }
